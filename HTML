@@ -17,9 +17,8 @@
 <script>
 
 
-
 $(document).ready(function(){
-show_events()
+	show_events();
 });
 
 function show_events(){
@@ -36,7 +35,12 @@ function show_events(){
     EVDB.API.call("/events/search", oArgs, function(oData) {
 
 		var divEC = document.getElementById('id-div-ce');
-	
+			
+			$(document).ready(function() {
+			$("div#id-div-ce").removeClass("hidden");
+			document.getElementById('id-loader-ce').style.backgroundImage = "none";
+			});
+		
 		for (var i = 0; i < oData.events.event.length ; i++) 
 		{
 			console.log('evo ga venue za ' + i + ': ' + oData.events.event[i].venue_name);
@@ -71,18 +75,20 @@ function show_events(){
 			var novicarddiv = document.createElement("div");
 			
 			novicarddiv.className = "card-body text-bottom";
-	
+			
 			var shortTitle=oData.events.event[i].title
 			shortTitle = function (str, length) {
 			if (length>0) {
 			return str.slice(0, lenght-10);
 			} 
 			};
+		
+			
 			//var shortTitle = oData.events.event[i].title;
 			//var cut = shortTitle.substr(25);
 			//izbroj str lenght
 			//if length > 22
-			//skrati i dodaj ...
+			//skrati i dodaj ...		
 			
 			novicarddiv.innerHTML = "<div class='card img-fluid myCard' style=\"width:250px; height:350px ; background-image:url('"+(oData.events.event[i].image?oData.events.event[i].image.medium.url:'')+"');\"><div class='card-img-overlay'><p id='event-content0'><p class='title'>"+shortTitle+"</p><p>"+oData.events.event[i].venue_name+"</p><p>"+oData.events.event[i].venue_address+"</p><p>"+oData.events.event[i].start_time+"</p></p><a href='"+oData.events.event[i].venue_url+"' class='btn btn-primary'>See Event</a></div></div>";
 			
@@ -112,12 +118,25 @@ function show_events(){
 </script>
 
 	<body>
-
-	<div class="container">
-		<div class="card-deck" id="id-div-ce">
+	
+	<div class="container api-container" >
+	<div class="row">
+		<div style="display" class="loader" id="id-loader-ce">
 		</div>
-
+		<div class="card-deck hidden" id="id-div-ce">
+		</div>
 	</div>
+	</div>
+	
+	<div class="container api-container">
+	<div class="row">
+		<div class="loader">
+		</div>
+		<div class="card-deck" id="id-div-wf">
+		</div>
+	</div>
+	</div>
+	
 <!--<div class="container">
   
   <div class="card-deck">
