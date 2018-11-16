@@ -76,12 +76,10 @@ function show_events(){
 			
 			novicarddiv.className = "card-body text-bottom";
 			
-			var shortTitle=oData.events.event[i].title
-			shortTitle = function (str, length) {
-			if (length>0) {
-			return str.slice(0, lenght-10);
-			} 
-			};
+			
+			var shortTitle=oData.events.event[i].title;
+			var lenght = 20 ;
+			var trimmedString= shortTitle.substring (0, length);
 		
 			
 			//var shortTitle = oData.events.event[i].title;
