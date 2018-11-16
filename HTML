@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+
+<script type="text/javascript" src="http://api.eventful.com/js/api"> </script>
+<link href="style.css" rel="stylesheet">
+ 
+<script type="text/javascript"> </script>
+<script>
+
+
+
+$(document).ready(function(){
+show_events()
+});
+
+function show_events(){
+
+	var oArgs = {
+      app_key: "J6pXbRhGpsSs9j67",
+      q: "music",
+      where: "New York", 
+      "date": "2018111000-2018111800",
+      page_size: 5,
+      sort_order: "popularity",
+    };
+
+    EVDB.API.call("/events/search", oArgs, function(oData) {
+
+		var divEC = document.getElementById('id-div-ce');
+	
+		for (var i = 0; i < oData.events.event.length ; i++) 
+		{
+			console.log('evo ga venue za ' + i + ': ' + oData.events.event[i].venue_name);
+			// create html element
+			// insert into dom
+			// set element values to current event data
+			
+		
+	
+			/*var para = document.createElement("p");                       
+			var t = document.createTextNode(oData.events.event[i].title);
+			para.appendChild(t);                                          
+			$('<div class="results" />').text(i.length[i]).appendTo('body');
+			
+			var para = document.createElement("p");                       
+			var t = document.createTextNode(oData.events.event[i].venue_name);
+			para.appendChild(t);                                          
+			$('<div class="results" />').text(i.length[i]).appendTo('body');
+			
+			var para = document.createElement("p");                       
+			var t = document.createTextNode(oData.events.event[i].venue_address);
+			para.appendChild(t);                                          
+			document.getElementById('event-content'+i).appendChild(para);  
+	
+			document.getElementById('image' + i).src=oData.events.event[i].image.medium.url;
+			
+			var para = document.createElement("p");                       
+			var t = document.createTextNode(oData.events.event[i].start_time);
+			para.appendChild(t);                                          
+			document.getElementById('event-content'+i).appendChild(para);*/
+			
+			var novicarddiv = document.createElement("div");
+			
+			novicarddiv.className = "card-body text-bottom";
+	
+			var shortTitle = oData.events.event[i].title;
+			var cut = shortTitle.substr(25);
+			//izbroj str lenght
+			//if length > 22
+			//skrati i dodaj ...
+			
+			novicarddiv.innerHTML = "<div class='card img-fluid myCard' style=\"width:250px; height:350px ; background-image:url('"+(oData.events.event[i].image?oData.events.event[i].image.medium.url:'')+"');\"><div class='card-img-overlay'><p id='event-content0'><p class='title'>"+shortTitle+"</p><p>"+oData.events.event[i].venue_name+"</p><p>"+oData.events.event[i].venue_address+"</p><p>"+oData.events.event[i].start_time+"</p></p><a href='"+oData.events.event[i].venue_url+"' class='btn btn-primary'>See Event</a></div></div>";
+			
+			divEC.appendChild(novicarddiv);
+			
+			/*var novicarddiv = document.createElement("div");
+	
+			var prvodetediv = document.createElement("div");
+
+			var drugodetediv = document.createElement("div");
+			var image = document.createElement("image");
+			
+	
+			prvodetediv.appendChild(drugodetediv);
+			prvodetediv.appendChild(image);
+			
+			novicarddiv.appendChild(prvodetediv);
+			
+			divEC.appendChild(novicarddiv);*/
+			
+		}	
+	});
+	
+ }
+
+
+</script>
+
+	<body>
+
+	<div class="container">
+		<div class="card-deck" id="id-div-ce">
+		</div>
+
+	</div>
+<!--<div class="container">
+  
+  <div class="card-deck">
+    
+	
+
+      <div class="card-body text-center">
+		<div class="card img-fluid" style="width:250px">
+			<img id="image0" alt="Card image" style="width:250px" >
+			<div class="card-img-overlay">
+				<p id="event-content0"><b>Belgrade events:</b> </p>
+				<a href="oData.events.event[i].venue_url" class="btn btn-primary">See Event</a>
+			</div>
+		</div>
+	 </div>
+	
+
+      <div class="card-body text-center">
+        <div class="card img-fluid" style="width:250px">
+		<img id="image1" alt="Card image" style="width:250px">
+		<div class="card-img-overlay">
+		  	<p id="event-content1"><b>Belgrade events:</b></p>
+		  <a href="oData.events.event[i].venue_url" class="btn btn-primary">See Event</a>
+      </div>
+    </div>
+	 </div>
+
+	
+      <div class="card-body text-center">
+        <div class="card img-fluid" style="width:250px">
+		<img id="image2" alt="Card image" style="width:250px">
+		<div class="card-img-overlay">
+		  	<p id="event-content2"><b>Belgrade events:</b></p>
+		  <a href="oData.events.event[i].venue_url" class="btn btn-primary">See Event</a>
+      </div>
+    </div>
+    </div>  
+	
+	<div class="card-body text-center">
+        <div class="card img-fluid" style="width:250px" "height:100px">
+		<img id="image3" alt="Card image" style="width:250px">
+		<div class="card-img-overlay">
+		  	<p id="event-content3"><b>Belgrade events:</b></p>
+		  <a href="oData.events.event[i].venue_url" class="btn btn-primary">See Event</a>
+      </div>
+    </div>
+    </div>  -->
+
+</body>
+</html>
